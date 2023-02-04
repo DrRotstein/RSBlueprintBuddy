@@ -1,0 +1,8 @@
+name: RSBlueprintBuddy
+version: 0.0.1-SNAPSHOT
+main: com.drrotstein.rsbb.RSBlueprintBuddyPlugin
+author: DrRotstein
+commands:
+  blueprint:
+    description: Save or load schematics/litematics
+    aliases: [bp]
