@@ -3,12 +3,8 @@ package com.drrotstein.rsbb.commands;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -22,7 +18,7 @@ import com.drrotstein.rsmcutils.world.LocationUtils;
 public class CommandBlueprint extends SubCommandParent {
 	
 	public static final PlayerMap<Location[]> PLAYER_SELECTIONS = new PlayerMap<>();
-	public static final Location[] CONSOLE_SELECTIONS = new Location[2];
+	public static final Location[] CONSOLE_SELECTION = new Location[2];
 	
 
 	@Override
@@ -39,7 +35,7 @@ public class CommandBlueprint extends SubCommandParent {
 	@Override
 	public SubCommandList getSubCommands() {
 		return new SubCommandList(new SubCommandBlueprintSave(), new SubCommandBlueprintLoad(), new SubCommandBlueprintFirst(),
-									new SubCommandBlueprintSecond(), new SubCommandBlueprintUpdate());
+									new SubCommandBlueprintSecond(), new SubCommandBlueprintUpdate(), new SubCommandBlueprintSelection());
 	}
 
 	@Override
@@ -84,8 +80,8 @@ public class CommandBlueprint extends SubCommandParent {
 			if(first) PLAYER_SELECTIONS.put(player, new Location[] {loc, null});
 			else PLAYER_SELECTIONS.get(player)[1] = loc;
 		} else {
-			if(first) CONSOLE_SELECTIONS[0] = loc;
-			CONSOLE_SELECTIONS[1] = first ? null : loc;
+			if(first) CONSOLE_SELECTION[0] = loc;
+			CONSOLE_SELECTION[1] = first ? null : loc;
 		}
 		
 		return true;
@@ -101,7 +97,7 @@ public class CommandBlueprint extends SubCommandParent {
 
 		@Override
 		public String getPermission() {
-			return "rsbb.bp.select";
+			return "rsbb.bp.save";
 		}
 
 		@Override
@@ -130,11 +126,15 @@ public class CommandBlueprint extends SubCommandParent {
 
 		@Override
 		public String getPermission() {
-			return "rsbb.bp.select";
+			return "rsbb.bp.save";
 		}
 
 		@Override
 		public boolean command(CommandSender sender, Command command, String label, String[] args) {
+			if((sender instanceof Player && PLAYER_SELECTIONS.get((Player) sender) == null) || (!(sender instanceof Player) && CONSOLE_SELECTION == null)) {
+				sender.sendMessage("§cYou must select a first position first!");
+				return false;
+			}
 			return select(sender, this, args, false);
 		}
 
@@ -146,6 +146,42 @@ public class CommandBlueprint extends SubCommandParent {
 		@Override
 		public SubCommandList getSubCommands() {
 			return new SubCommandList();
+		}
+		
+	}
+	
+	public static class SubCommandBlueprintSelection extends SubCommand {
+
+		@Override
+		public String getLabel() {
+			return "selection";
+		}
+
+		@Override
+		public String getPermission() {
+			return "rsbb.bp.save";
+		}
+
+		@Override
+		public boolean command(CommandSender sender, Command command, String label, String[] args) {
+			if(!checkForArgsLengthEquals(0)) return false;
+			Location[] locs;
+			if(sender instanceof Player) locs = PLAYER_SELECTIONS.get((Player) sender);
+			else locs = CONSOLE_SELECTION;
+			sender.sendMessage("§7Your corner-block-selections for schematics are:");
+			sender.sendMessage("§7First: §8" + (locs == null ? "None" : LocationUtils.display(locs[0], " ")));
+			sender.sendMessage("§7Second: §8" + (locs == null || locs[1] == null ? "None" : LocationUtils.display(locs[1], " ")));
+			return true;
+		}
+
+		@Override
+		public List<String> tabComplete(CommandSender sender, Command command, String label, String[] args) {
+			return new ArrayList<>();
+		}
+
+		@Override
+		public SubCommandList getSubCommands() {
+			return null;
 		}
 		
 	}
