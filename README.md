@@ -15,4 +15,4 @@ Then, you can use "/blueprint save \<name\>" to save the schematic with the name
 
 ### Loading schematics
 
-To load a schematic into the world you can use "/blueprint load \<x\> \<y\> \<z\>" to place it at the given coordinates or use "/blueprint load" to place it at the current coordinates where the player is standing.
+To load a schematic into the world you can use "/blueprint load \<name\> \<x\> \<y\> \<z\>" to place the schematic \<name\> at the given coordinates or just "/blueprint load \<name\>" to place it at the current coordinates where the player is standing.
