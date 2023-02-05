@@ -8,11 +8,11 @@ The main command is `/blueprint` or just `/bp`.
 
 ### Saving schematics
 
-To save schematics you first need to select the two end-positions using `/blueprint first/second \<x\> \<y\> \<z\>`.
-`\<x\>`, `\<y\>` and `\<z\>` represent the coordinates for the position to be selected. Use `/bp first` to save the coordinates as the first selection and `/bp second` to save the coordinates as the second selection.
+To save schematics you first need to select the two end-positions using `/blueprint first/second <x> <y> <z>`.
+`<x>`, `<y>` and `<z>` represent the coordinates for the position to be selected. Use `/bp first` to save the coordinates as the first selection and `/bp second` to save the coordinates as the second selection.
 
-Then, you can use `/blueprint save \<name\>` to save the schematic with the name `\<name\>`. If the schematic `\<name\>` already exists, use `/blueprint update \<name\>` to overwrite the existing schematic.
+Then, you can use `/blueprint save <name>` to save the schematic with the name `<name>`. If the schematic `<name>` already exists, use `/blueprint update <name>` to overwrite the existing schematic.
 
 ### Loading schematics
 
-To load a schematic into the world you can use `/blueprint load \<name\> \<x\> \<y\> \<z\>` to place the schematic `\<name\>` at the given coordinates or just `/blueprint load \<name\>` to place it at the current coordinates where the player is standing.
+To load a schematic into the world you can use `/blueprint load <name> <x> <y> <z>` to place the schematic `<name>` at the given coordinates or just `/blueprint load <name>` to place it at the current coordinates where the player is standing.
