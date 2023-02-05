@@ -77,7 +77,7 @@
 		<dependency>
 			<groupId>com.github.DrRotstein</groupId>
 			<artifactId>RSMCPluginUtils</artifactId>
-			<version>d09e900f46</version>
+			<version>a22dfda8ec</version>
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
